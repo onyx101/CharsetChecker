@@ -2,7 +2,7 @@
 
 The purpose of this application is to read in files and validate the correct charset. At the moment only UTF-8 is supported.
 
-For every error it's line and location is printed out. This is mainly used for checking XML files, which normally have to be encoded in UTF-8.
+For every error its line and location is printed out. This is mainly used for checking XML files, which normally have to be encoded in UTF-8.
 
 ## Usage
 

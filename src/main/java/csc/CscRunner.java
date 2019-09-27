@@ -17,9 +17,9 @@ public class CscRunner implements ApplicationRunner {
 	private CscService cscService;
 
 	private void help() {
-		System.out.println("CharsetChecker validates file for corerct charset handling.");
-		System.out.println("Errors and their location are reported and may the be corrected.");
-		System.out.println("");
+		System.out.println("CharsetChecker validates files for corerct charset encoding.");
+		System.out.println("Errors and their location are reported.");
+		System.out.println();
 		System.out.println("--help\t\t\tprint help");
 		System.out.println("--version\t\tprint version");
 		System.out.println("--i=\t\t\tinput file");
