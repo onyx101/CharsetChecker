@@ -15,4 +15,10 @@ A typical call of the application would look like this
 
 * java -jar csc-1.0.0.jar -i=file.xml
 
-The output find all incorrect locations and prints them out. The output can also be forwarded to a file. 
+The application finds all incorrect locations and prints them out. The output can also be forwarded to a file. 
+
+## Building
+
+The application may easily be built with normal manven tooling
+
+* mvn package
