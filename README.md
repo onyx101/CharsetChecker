@@ -19,6 +19,6 @@ The application finds all incorrect locations and prints them out. The output ca
 
 ## Building
 
-The application may easily be built with normal manven tooling
+The application may easily be built with normal maven tooling
 
 * mvn package
