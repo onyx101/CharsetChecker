@@ -22,6 +22,7 @@ public class CscRunner implements ApplicationRunner {
 		System.out.println();
 		System.out.println("--help\t\t\tprint help");
 		System.out.println("--version\t\tprint version");
+		System.out.println("--enc=\t\t\tencoding, default UTF-8");
 		System.out.println("--i=\t\t\tinput file");
 		System.out.println("[--o=]\t\t\toutput file");
 	}
@@ -54,6 +55,7 @@ public class CscRunner implements ApplicationRunner {
 			version();
 			return;
 		}
+		
 		if (args.containsOption("i")) {
 			if (args.getOptionValues("i").size() != 1) {
 				System.out.println("Error with argument 'i'");
@@ -69,6 +71,15 @@ public class CscRunner implements ApplicationRunner {
 				return;
 			} else {
 				options.setOutputFile(args.getOptionValues("o").get(0));
+			}
+		}
+		
+		if (args.containsOption("enc")) {
+			if (args.getOptionValues("enc").size() != 1) {
+				System.out.println("Error with argument 'enc'");
+				return;
+			} else {
+				options.setEncoding(args.getOptionValues("enc").get(0));
 			}
 		}
 		

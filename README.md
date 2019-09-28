@@ -1,6 +1,6 @@
 # CharsetChecker
 
-The purpose of this application is to read in files and validate the correct charset. At the moment only UTF-8 is supported.
+The purpose of this application is to read in files and validate the correct charset encoding. By default UTF-8 encodings are checked, but all Java encodings are supported.
 
 For every error its line and location is printed out. This is mainly used for checking XML files, which normally have to be encoded in UTF-8.
 

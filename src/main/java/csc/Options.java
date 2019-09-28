@@ -4,6 +4,7 @@ public class Options {
 	
 	private String inputFile;
 	private String outputFile;
+	private String encoding = "UTF-8";
 	
 	public boolean isValid() {
 		if (inputFile == null) {
@@ -25,6 +26,14 @@ public class Options {
 	}
 	public void setOutputFile(String outputFile) {
 		this.outputFile = outputFile;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }
