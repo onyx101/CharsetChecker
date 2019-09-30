@@ -15,7 +15,7 @@ public class CscService {
 		
 		PrintStream os = System.out;
 		if (options.getOutputFile() != null) {
-			os = new PrintStream(options.getOutputFile());
+			os = new PrintStream(options.getOutputFile(), options.getEncoding());
 		}
 		
 		try (FileInputStream fis = new FileInputStream(options.getInputFile())) {
