@@ -18,10 +18,9 @@ public class CscService {
 			os = new PrintStream(options.getOutputFile(), options.getEncoding());
 		}
 		
-		try (FileInputStream fis = new FileInputStream(options.getInputFile())) {
+		try (FileInputStream fis = new FileInputStream(options.getInputFile());
+				CharsetChecker charsetChecker = new CharsetChecker(Charset.forName(options.getEncoding()), fis)) {
 		
-			CharsetChecker charsetChecker = new CharsetChecker(Charset.forName(options.getEncoding()), fis);
-			
 			Error err = null;
 			
 			while ((err = charsetChecker.processByLine()) != null) {

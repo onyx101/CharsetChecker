@@ -1,12 +1,13 @@
 package csc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Error {
 	
 	private String line;
 	private int lineNr;
-	private List<Integer> columnNr;
+	private List<Integer> columnNr = new ArrayList<>();
 	
 	public String getLine() {
 		return line;

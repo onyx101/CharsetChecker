@@ -1,21 +1,19 @@
 package csc;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
 
-public class CharsetChecker {
+public class CharsetChecker implements Closeable {
 	
 	private CharsetDecoder decoder;
 	private int lineNr;
+	private int columnNr;
 	
 	private InputStream inputStream;
 	
@@ -35,6 +33,32 @@ public class CharsetChecker {
 	
 	public void reset() {
 		lineNr = 0;
+		columnNr = 0;
+	}
+	
+	public Error processByCharacter() throws IOException {
+		
+		int ch;
+		
+		Error err = null;
+		
+		while ((ch = br.read()) != -1) {
+			
+			columnNr++;
+			
+			String str = new String(Character.toChars(ch));
+			
+			if (decoder.replacement().equals(str)) {
+				if (err == null) {
+					err = new Error();
+				}
+				err.getColumnNr().add(columnNr);
+			}
+			
+		}
+		
+		return err;
+		
 	}
 	
 	public Error processByLine() throws IOException {
@@ -49,7 +73,6 @@ public class CharsetChecker {
 				Error err = new Error();
 				err.setLine(line);
 				err.setLineNr(lineNr);
-				err.setColumnNr(new ArrayList<>());
 				
 				int idx = -1;
 				while ((idx = line.indexOf(decoder.replacement(), idx+1)) != -1) {
@@ -60,6 +83,13 @@ public class CharsetChecker {
 		}
 		
 		return null;
+		
+	}
+
+	@Override
+	public void close() throws IOException {
+
+		br.close();
 		
 	}
 	
