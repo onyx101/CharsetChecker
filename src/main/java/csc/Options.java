@@ -5,6 +5,7 @@ public class Options {
 	private String inputFile;
 	private String outputFile;
 	private String encoding = "UTF-8";
+	private boolean lineBased = true;
 	
 	public boolean isValid() {
 		if (inputFile == null) {
@@ -34,6 +35,14 @@ public class Options {
 
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
+	}
+
+	public boolean isLineBased() {
+		return lineBased;
+	}
+
+	public void setLineBased(boolean lineBased) {
+		this.lineBased = lineBased;
 	}
 
 }

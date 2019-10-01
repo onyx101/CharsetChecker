@@ -23,12 +23,19 @@ public class CscService {
 		
 			Error err = null;
 			
-			while ((err = charsetChecker.processByLine()) != null) {
-				
-				os.println("Error found in line ["+err.getLineNr()+"] and column(s) ["+StringUtils.join(err.getColumnNr(), ',')+"]");
-				os.println(err.getLine());
-				os.println();
-				
+			if (options.isLineBased()) {
+				while ((err = charsetChecker.processByLine()) != null) {
+					
+					os.println("Error found in line ["+err.getLineNr()+"] and column(s) ["+StringUtils.join(err.getColumnNr(), ',')+"]");
+					if (err.getLine() != null) {
+						os.println(err.getLine());
+					}
+					os.println();
+				}
+			} else {
+				while ((err = charsetChecker.processByCharacter()) != null) {
+					os.println("Error found in line ["+err.getLineNr()+"] and column ["+StringUtils.join(err.getColumnNr(), ',')+"]");
+				}
 			}
 			
 		} finally {

@@ -22,6 +22,7 @@ public class CscRunner implements ApplicationRunner {
 		System.out.println();
 		System.out.println("--help\t\t\tprint help");
 		System.out.println("--version\t\tprint version");
+		System.out.println("--char\t\t\tcharacter based parsing");
 		System.out.println("--enc=\t\t\tencoding, default UTF-8");
 		System.out.println("--i=\t\t\tinput file");
 		System.out.println("[--o=]\t\t\toutput file");
@@ -54,6 +55,10 @@ public class CscRunner implements ApplicationRunner {
 		if (args.containsOption("version")) {
 			version();
 			return;
+		}
+		
+		if (args.containsOption("char")) {
+			options.setLineBased(false);
 		}
 		
 		if (args.containsOption("i")) {

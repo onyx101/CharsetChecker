@@ -48,11 +48,19 @@ public class CharsetChecker implements Closeable {
 			
 			String str = new String(Character.toChars(ch));
 			
+			if ("\n".equals(str)) {
+				lineNr++;
+				columnNr = 0;
+				continue;
+			}
+			
 			if (decoder.replacement().equals(str)) {
 				if (err == null) {
 					err = new Error();
 				}
 				err.getColumnNr().add(columnNr);
+				err.setLineNr(lineNr+1);
+				return err;
 			}
 			
 		}
