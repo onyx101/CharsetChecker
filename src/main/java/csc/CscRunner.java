@@ -4,14 +4,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CscRunner implements ApplicationRunner {
+public class CscRunner implements CommandLineRunner {
 
 	@Autowired
 	private CscService cscService;
@@ -41,8 +48,77 @@ public class CscRunner implements ApplicationRunner {
 		}
 		
 	}
+	
+	private void help2(org.apache.commons.cli.Options opts) {
+		HelpFormatter hf = new HelpFormatter();
+		hf.printHelp("csc", opts);
+	}
+	
+	public void run(String... args) throws Exception {
+		
+		Options options = new Options();
+		
+		org.apache.commons.cli.Options opts = new org.apache.commons.cli.Options();
+		
+		Option help = new Option("h", "help", false, "print help");
+		Option version = new Option("v", "version", false, "print version");
+		Option ch = new Option("c", "char", false, "character based parsing");
+		Option enc = new Option("e", "enc", true, "encoding, default UTF8");
+		Option input = new Option("i", "input", true, "input file");
+		Option output = new Option("o", "output", true, "output file");
+		
+		opts.addOption(help);
+		opts.addOption(version);
+		opts.addOption(ch);
+		opts.addOption(enc);
+		opts.addOption(input);
+		opts.addOption(output);
+		
+		CommandLineParser clp = new DefaultParser();
+		
+		try {
+		
+			CommandLine cl = clp.parse(opts, args);
+			
+			if (cl.hasOption("help")) {
+				help2(opts);
+				return;
+			}
+			
+			if (cl.hasOption("version")) {
+				version();
+				return;
+			}
+			
+			if (cl.hasOption("char")) {
+				options.setLineBased(false);
+			}
+			
+			if (cl.hasOption("enc")) {
+				options.setEncoding(cl.getOptionValue("enc"));
+			}
+			
+			if (cl.hasOption("i")) {
+				options.setInputFile(cl.getOptionValue("i"));
+			}
+			
+			if (cl.hasOption("o")) {
+				options.setOutputFile(cl.getOptionValue("o"));
+			}
+			
+			if (options.isValid()) {
+				cscService.perform(options);
+			} else {
+				help2(opts);
+			}
+			
+		} catch (ParseException pe) {
+			System.out.print("Error: "+pe.getMessage());
+		}
+		
+		
+	}
 
-	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
 		Options options = new Options();

@@ -9,7 +9,7 @@ public class Options {
 	
 	public boolean isValid() {
 		if (inputFile == null) {
-			System.out.println("You must give an input file with --i");
+			System.out.println("You must give an input file");
 			return false;
 		}
 		
