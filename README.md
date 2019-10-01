@@ -13,7 +13,7 @@ Call 'java -jar csc.jar -h' to get a help screen.
 
 A typical call of the application would look like this
 
-* java -jar csc.jar -i=file.xml
+* java -jar csc.jar -i file.xml
 
 The application finds all incorrect locations and prints them out. The output can also be forwarded to a file. 
 
