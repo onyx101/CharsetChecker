@@ -22,3 +22,7 @@ The application finds all incorrect locations and prints them out. The output ca
 The application may easily be built with normal maven tooling
 
 * mvn package
+
+## Operationg type
+
+In normal operation the file is parsed line by line and errors for each line are aggregated. Some files may consist of very few lines (or even only one). For these the operation mode be turned to a character based operation mode, which reports each error character seperately. For this use the '-c' argument option.
